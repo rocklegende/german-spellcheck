@@ -1,0 +1,165 @@
+@import 'loadingDots';
+
+$default-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+}
+
+.input-fields {
+  max-width: 700px;
+  display: block;
+  margin: 0 auto;
+  .heading {
+    text-align: center;
+  }
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
+.bar-chart-container {
+  margin: 0 5rem;
+}
+
+.spacer {
+  height: 5rem;
+}
+
+.spacee-lg {
+  height: 8rem;
+}
+
+.spacer-small {
+  height: 3rem;
+}
+
+.analysis {
+  width: 100%;
+  .heading {
+    text-align: center;
+  }
+}
+
+.analysis-flex-container {
+  margin: 0 5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .bar-chart-container {
+    width: 50%;
+  }
+  .text-output-container {
+    width: 50%;
+  }
+}
+
+footer {
+  height: 100px;
+  background-color: dimgray;
+  width: 100%;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  resize: none;
+}
+.textfield {
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 1rem 1rem 4rem 1rem;
+  overflow-y: visible;
+}
+
+.input-textfield {
+  min-height: 250px;
+}
+
+.box-shadow {
+  box-shadow: $default-box-shadow;
+}
+
+
+.spell-check-inline-info {
+  z-index: 100;
+  position: absolute;
+  width: 15rem;
+  left: -0.25rem;
+  top: 1.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: $default-box-shadow;
+  background-color: white;
+
+}
+
+.red-mark {
+  background-color: rgba(255, 151, 108, 0.66);
+  color: black;
+}
+
+.red-underline {
+  text-decoration: underline;
+  color: red;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
