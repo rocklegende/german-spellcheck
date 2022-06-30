@@ -2,7 +2,11 @@
 
 Input german text and get suggestions for grammar and spelling.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Shows results according to the [Oldenburger Fehleranalyse (OLFA)](https://de.wikipedia.org/wiki/Oldenburger_Fehleranalyse). 
+
+![Demo](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
+Try it yourself! >>> [LIVE DEMO](https://cosmic-pavlova-82e3af.netlify.app/)
 
 ## Development
 
