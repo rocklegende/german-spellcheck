@@ -4,9 +4,9 @@ Input german text and get suggestions for grammar and spelling.
 
 Shows results according to the [Oldenburger Fehleranalyse (OLFA)](https://de.wikipedia.org/wiki/Oldenburger_Fehleranalyse). 
 
-![Demo](grammarcheck-demo.gif)
-
 Try it yourself! >>> [LIVE DEMO](https://cosmic-pavlova-82e3af.netlify.app/)
+
+![Demo](grammarcheck-demo.gif)
 
 ## Development
 
