@@ -1,4 +1,4 @@
-import {getTextsWithOffsets} from "./helpers";
+import {getTextsWithOffsets, areNeighborsOnKeyboard, getPositionOfLetter} from "./helpers";
 
 test("getTextWithOffsets", () => {
     expect(JSON.stringify(getTextsWithOffsets("hallo ich bin  cool"))).toBe(
@@ -37,4 +37,21 @@ test("getTextWithOffsets", () => {
             [".", 20],
         ])
     )
+})
+
+test("areNeighborsOnKeyboard", () => {
+    expect(areNeighborsOnKeyboard('1', 'w')).toBeTruthy();
+    expect(areNeighborsOnKeyboard('q', '2')).toBeTruthy();
+    expect(areNeighborsOnKeyboard('q', 'w')).toBeTruthy();
+    expect(areNeighborsOnKeyboard('Q', 'W')).toBeTruthy();
+    expect(areNeighborsOnKeyboard('Q', 'E')).toBeFalsy();
+    expect(areNeighborsOnKeyboard('Q', 'EA')).toBeFalsy();
+    expect(areNeighborsOnKeyboard('Q', '')).toBeFalsy();
+    expect(areNeighborsOnKeyboard('', 'E')).toBeFalsy();
+})
+
+test("getPosition", () => {
+    const position = getPositionOfLetter('q');
+    expect(position.row).toBe(1);
+    expect(position.col).toBe(0);
 })

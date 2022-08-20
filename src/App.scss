@@ -101,7 +101,7 @@ textarea {
 .spell-check-inline-info {
   z-index: 100;
   position: absolute;
-  width: 15rem;
+  width: 20rem;
   left: -0.25rem;
   top: 1.5rem;
   border-radius: 0.5rem;
@@ -162,4 +162,6 @@ textarea {
   align-items: center;
 }
 
-
+.mark {
+  cursor: pointer;
+}

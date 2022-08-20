@@ -6,7 +6,7 @@ import {
     hasSingleInsteadOfDoubleVokal, hasSwappedCharacters,
     hasUppercaseInTheMiddle, hasWrongKonsonant, hasWrongVokal,
     isGetrenntStattZusammen,
-    isLowercaseInsteadOfUppercase,
+    isLowercaseInsteadOfUppercase, isTypo,
     isUppercaseInsteadOfLowercase,
     isZusammenStattGetrennt, missingKonsonant, missingVokal,
     mixedLetters, oneLetterDiff,
@@ -155,6 +155,13 @@ describe("dataProvider tests", () => {
         expect(hasSwappedCharacters("bein", "bein")).toBeFalsy();
         expect(hasSwappedCharacters("gradeso", "gradesooo")).toBeFalsy();
         expect(hasSwappedCharacters("ukraine", "ukriane")).toBeTruthy();
+    })
+
+    test("isTypo", () => {
+        expect(isTypo("Vogel", "Cogel")).toBeTruthy(); // C is one letter away from V on germna keyboard
+        expect(isTypo("Feier", "Deier")).toBeTruthy(); // F is one letter away from D on germna keyboard
+        expect(isTypo("Feier", "Heier")).toBeFalsy(); // F is two letters away from H on germna keyboard
+        expect(isTypo("qeier", "weier")).toBeTruthy();
     })
 
 })
