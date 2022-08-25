@@ -4,12 +4,13 @@ import {patienceDiff, patienceDiffPlus} from "./patienceDiff";
 import {areNeighborsOnKeyboard} from "./helpers";
 
 class SpellCheckError {
-    constructor(id, categoryId, title, markColor, borderColor) {
+    constructor(id, categoryId, title, markColor, borderColor, group) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.markColor = markColor;
         this.borderColor = borderColor;
+        this.group = group;
     }
 }
 
@@ -23,6 +24,7 @@ export const spellCheckErrors = {
         "Getrennt- für Zusammenschreibung",
         'rgba(75, 192, 192, 0.4)',
         'rgba(75, 192, 192, 1)',
+        2
     ),
     "Uppercase_insteadOf_Lowercase": new SpellCheckError(
         "Uppercase_insteadOf_Lowercase",
@@ -30,6 +32,7 @@ export const spellCheckErrors = {
         "Groß- für Kleinschreibung",
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 99, 132, 1)',
+        3
     ),
     "Lowercase_insteadOf_Uppercase": new SpellCheckError(
         "Lowercase_insteadOf_Uppercase",
@@ -37,6 +40,7 @@ export const spellCheckErrors = {
         "Klein- für Großschreibung",
         'rgba(54, 162, 235, 0.4)',
         'rgba(54, 162, 235, 1)',
+        2
     ),
     "UppercaseInTheMiddle": new SpellCheckError(
         "UppercaseInTheMiddle",
@@ -44,6 +48,7 @@ export const spellCheckErrors = {
         "Großschreibung im Wort",
         'rgba(255, 206, 86, 0.4)',
         'rgba(255, 206, 86, 1)',
+        1
     ),
     "hasDoubledInsteadOfSingleKonsonant": new SpellCheckError(
         "hasDoubledInsteadOfSingleKonsonant",
@@ -51,6 +56,7 @@ export const spellCheckErrors = {
         "Konsonantenverdopplung für Einfachschreibung",
         'rgba(75, 192, 192, 0.4)',
         'rgba(75, 192, 192, 1)',
+        3
     ),
     "hasSingleInsteadOfDoubleKonsonant": new SpellCheckError(
         "hasSingleInsteadOfDoubleKonsonant",
@@ -58,13 +64,15 @@ export const spellCheckErrors = {
         "Einfachschreibung für Konsonantenverdopplung",
         'rgba(153, 102, 255, 0.4)',
         'rgba(153, 102, 255, 1)',
+        2
     ),
     "hasDoubledInsteadOfSingleVokal": new SpellCheckError(
         "hasDoubledInsteadOfSingleVokal",
         10,
         "Markierte Längen für Einfachschreibung nach Kurzvokal",
         'rgba(255, 159, 64, 0.4)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+        3
     ),
     "hasSingleInsteadOfDoubleVokal": new SpellCheckError(
         "hasSingleInsteadOfDoubleVokal",
@@ -72,6 +80,7 @@ export const spellCheckErrors = {
         "Einfache Vokalschreibung für markierte Länge",
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 99, 132, 1)',
+    2
     ),
     "SS_insteadOf_SZ": new SpellCheckError(
         "SS_insteadOf_SZ",
@@ -79,6 +88,7 @@ export const spellCheckErrors = {
         "ss für ß",
         'rgba(54, 162, 235, 0.4)',
         'rgba(54, 162, 235, 1)',
+    3
     ),
     "SZ_insteadOf_SS": new SpellCheckError(
         "SZ_insteadOf_SS",
@@ -86,6 +96,7 @@ export const spellCheckErrors = {
         "ß für ss",
         'rgba(255, 206, 86, 0.4)',
         'rgba(255, 206, 86, 1)',
+    3
     ),
     "W_insteadOf_V": new SpellCheckError(
         "W_insteadOf_V",
@@ -93,6 +104,7 @@ export const spellCheckErrors = {
         "w für v",
         'rgba(75, 192, 192, 0.4)',
         'rgba(75, 192, 192, 1)',
+    2
     ),
     "V_insteadOf_W": new SpellCheckError(
         "V_insteadOf_W",
@@ -100,13 +112,15 @@ export const spellCheckErrors = {
         "v für w",
         'rgba(153, 102, 255, 0.4)',
         'rgba(153, 102, 255, 1)',
+    3
     ),
     "V_insteadOf_F": new SpellCheckError(
         "V_insteadOf_F",
         24,
         "v für f",
         'rgba(255, 159, 64, 0.4)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+    3
     ),
     "F_insteadOf_V": new SpellCheckError(
         "F_insteadOf_V",
@@ -114,6 +128,7 @@ export const spellCheckErrors = {
         "f für v",
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 99, 132, 1)',
+    2
     ),
     "S_insteadOf_SZ": new SpellCheckError(
         "S_insteadOf_SZ",
@@ -121,6 +136,7 @@ export const spellCheckErrors = {
         "s für ß",
         'rgba(54, 162, 235, 0.4)',
         'rgba(54, 162, 235, 1)',
+    2
     ),
     "SZ_insteadOf_S": new SpellCheckError(
         "SZ_insteadOf_S",
@@ -128,6 +144,7 @@ export const spellCheckErrors = {
         "ß für s",
         'rgba(255, 206, 86, 0.4)',
         'rgba(255, 206, 86, 1)',
+        3
     ),
     "CH_insteadOf_G": new SpellCheckError(
         "CH_insteadOf_G",
@@ -135,6 +152,7 @@ export const spellCheckErrors = {
         "ch für g",
         'rgba(75, 192, 192, 0.4)',
         'rgba(75, 192, 192, 1)',
+        2
     ),
     "G_insteadOf_CH": new SpellCheckError(
         "G_insteadOf_CH",
@@ -142,13 +160,15 @@ export const spellCheckErrors = {
         "g für ch",
         'rgba(153, 102, 255, 0.4)',
         'rgba(153, 102, 255, 1)',
+    3
     ),
     "ae_insteadOf_e": new SpellCheckError(
         "ae_insteadOf_e",
         18,
         "ä für e",
         'rgba(255, 159, 64, 0.4)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+    3
     ),
     "e_insteadOf_ae": new SpellCheckError(
         "e_insteadOf_ae",
@@ -156,6 +176,7 @@ export const spellCheckErrors = {
         "e für ä",
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 99, 132, 1)',
+    2
     ),
     "aeu_insteadOf_eu": new SpellCheckError(
         "aeu_insteadOf_eu",
@@ -163,6 +184,7 @@ export const spellCheckErrors = {
         "äu für eu",
         'rgba(54, 162, 235, 0.4)',
         'rgba(54, 162, 235, 1)',
+    3
     ),
     "eu_insteadOf_aeu": new SpellCheckError(
         "eu_insteadOf_aeu",
@@ -170,6 +192,7 @@ export const spellCheckErrors = {
         "eu für äu",
         'rgba(255, 206, 86, 0.4)',
         'rgba(255, 206, 86, 1)',
+    2
     ),
     "ZusammenFuerGetrennt": new SpellCheckError(
         "ZusammenFuerGetrennt",
@@ -177,13 +200,15 @@ export const spellCheckErrors = {
         "Zusammen- für Getrenntschreibung",
         'rgba(153, 102, 255, 0.4)',
         'rgba(153, 102, 255, 1)',
+    3
     ),
     "Falscher Vokal": new SpellCheckError(
         "Falscher Vokal",
         34,
         "Falscher Vokal",
         'rgba(255, 159, 64, 0.4)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+    1
     ),
     "FalscherKonsonant": new SpellCheckError(
         "FalscherKonsonant",
@@ -191,6 +216,7 @@ export const spellCheckErrors = {
         "Falscher Konsonant",
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 99, 132, 1)',
+    1
     ),
     "VokalFehlt": new SpellCheckError(
         "VokalFehlt",
@@ -198,6 +224,7 @@ export const spellCheckErrors = {
         "Vokalzeichen fehlt",
         'rgba(54, 162, 235, 0.4)',
         'rgba(54, 162, 235, 1)',
+    1
     ),
     "KonsonantFehlt": new SpellCheckError(
         "KonsonantFehlt",
@@ -205,6 +232,7 @@ export const spellCheckErrors = {
         "Konsonantenzeichen fehlt",
         'rgba(255, 206, 86, 0.4)',
         'rgba(255, 206, 86, 1)',
+    1
     ),
     "ExtraVokal": new SpellCheckError(
         "ExtraVokal",
@@ -212,6 +240,7 @@ export const spellCheckErrors = {
         "Vokalzeichen hinzugefügt",
         'rgba(75, 192, 192, 0.4)',
         'rgba(75, 192, 192, 1)',
+    1
     ),
     "ExtraKonsonant": new SpellCheckError(
         "ExtraKonsonant",
@@ -219,20 +248,23 @@ export const spellCheckErrors = {
         "Konsonantenzeichen hinzugefügt",
         'rgba(153, 102, 255, 0.4)',
         'rgba(153, 102, 255, 1)',
+    1
     ),
     "swappedChars": new SpellCheckError(
         "swappedChars",
         35,
         "Zeichenumstellung",
         'rgba(153, 102, 255, 0.4)',
-        'rgba(153, 102, 255, 1)'
+        'rgba(153, 102, 255, 1)',
+    1
     ),
     "Unknown": new SpellCheckError(
         "Unknown",
         0,
         "Unbekannter Fehler",
         'rgba(255, 159, 64, 0.4)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+    null
     ),
     "Tippfehler": new SpellCheckError(
         "Tippfehler",
@@ -240,13 +272,15 @@ export const spellCheckErrors = {
         "Tippfehler",
         'rgba(255, 99, 132, 0.4)',
         'rgba(255, 99, 132, 1)',
+    null
     ),
     "Grammar": new SpellCheckError(
         "Grammar",
         40,
         "Grammatikfehler",
         'rgba(255, 159, 64, 0.4)',
-        'rgba(255, 159, 64, 1)'
+        'rgba(255, 159, 64, 1)',
+    null
     )
 }
 
@@ -441,6 +475,30 @@ export function groupErrorsByOccurence (errors) {
     return entries;
 }
 
+export function groupErrorsByGroup (errors) {
+    let dict = {
+        1: {group: 1, occurences: 0},
+        2: {group: 2, occurences: 0},
+        3: {group: 3, occurences: 0}
+    };
+    for (let error of errors) {
+        for (let category of error.categories) {
+            error = spellCheckErrors[category];
+            if (!error.hasOwnProperty("group") || !error.group) {
+                continue;
+            }
+            if (dict.hasOwnProperty(error.group)) {
+                dict[error.group].occurences += 1;
+            } else {
+                dict[error.group] = {group: error.group, occurences: 1}
+            }
+        }
+    }
+    const entries = Object.keys(dict).map(key => dict[key])
+    entries.sort((a, b) => a.group - b.group)
+    return entries;
+}
+
 
 
 class DataProvider {
@@ -560,7 +618,6 @@ class DataProvider {
                 categories: [this.errorToCategory(match).id]
             }
         });
-        response.data.statistics = groupErrorsByOccurence(response.data.matches);
         console.log(response.data);
         return response.data;
     }

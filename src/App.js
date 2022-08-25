@@ -3,8 +3,9 @@ import {useEffect, useMemo, useState} from "react";
 import DataProvider, {groupErrorsByOccurence} from "./dataProvider";
 import {debounce} from "lodash";
 import SpellCheckErrorTextElement from "./components/SpellCheckErrorTextElement";
-import BarChart from "./components/BarChart";
+import ErrorOccurencesBarChart from "./components/ErrorOccurencesBarChart";
 import {getTextsWithOffsets} from "./helpers";
+import ErrorsByGroupBarChart from "./components/ErrorsByGroupBarChart";
 
 
 
@@ -25,23 +26,30 @@ function App() {
     return textWithOffsets.map(textWithOffset => {
       const word = textWithOffset[0];
       const offset = textWithOffset[1];
-      const spellCheckError = findSpellCheckErrorAtPosition(offset);
+      let spellCheckError = findSpellCheckErrorAtPosition(offset);
       if (!spellCheckError) {
-        // can be whitespace character, therefore choose pre-line here
-        return (<span style={{whiteSpace: "pre-line"}}>{word}</span>)
+        spellCheckError = {
+            word,
+            offset,
+            categories: [],
+            isNew: true
+        }
       }
       return <SpellCheckErrorTextElement
           key={offset}
           spellCheckError={spellCheckError}
           onSpellCheckErrorCategoriesChange={newCategories => {
               const newBla = {...spellCheckResults};
-              console.log(newBla);
-              console.log(spellCheckError);
-              console.log(newCategories);
-              const blakeks = newBla.matches.find(match => match.offset === offset);
+
+              let blakeks;
+              if (spellCheckError.hasOwnProperty("isNew")) {
+                  blakeks = spellCheckError;
+                  newBla.matches.push(blakeks);
+              } else {
+                  blakeks = newBla.matches.find(match => match.offset === offset);
+              }
               blakeks.categories = newCategories;
-              newBla.statistics = groupErrorsByOccurence(newBla.matches);
-              console.log(newBla);
+
               setSpellCheckResults(newBla);
               setSpellCheckOutput(getElements(inputText, newBla))
             }
@@ -108,9 +116,15 @@ function App() {
         <div className={"spacer-small"} />
         <div className={"bar-chart-container"}>
           {spellCheckResults && (
-              <BarChart spellCheckResults={spellCheckResults} />
+              <ErrorOccurencesBarChart spellCheckResults={spellCheckResults} />
           )}
         </div>
+          <div className={"spacer-small"} />
+          <div className={"bar-chart-container"}>
+              {spellCheckResults && (
+                  <ErrorsByGroupBarChart spellCheckResults={spellCheckResults} />
+              )}
+          </div>
         <div className={"spacer"} />
       </main>
 

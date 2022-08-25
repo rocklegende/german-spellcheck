@@ -41,7 +41,13 @@ function getStyles(name, personName, theme) {
 const SpellCheckErrorTextElement = ({spellCheckError, text, onSpellCheckErrorCategoriesChange}) => {
 
     const theme = useTheme();
-    const selectedCategories = spellCheckError.categories;
+    let selectedCategories;
+    if (!spellCheckError) {
+        selectedCategories = []
+    } else {
+        selectedCategories = spellCheckError.categories;
+    }
+
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClose = () => {
@@ -52,28 +58,29 @@ const SpellCheckErrorTextElement = ({spellCheckError, text, onSpellCheckErrorCat
         const {
             target: { value },
         } = event;
-        if (value.length === 0) {
-            // must at least select one
-            return;
-        }
         onSpellCheckErrorCategoriesChange(typeof value === 'string' ? value.split(',') : value)
     };
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
-    const markColor = spellCheckErrors[spellCheckError.categories[0]].markColor ? spellCheckErrors[spellCheckError.categories[0]].markColor : "yellow";
+    let markColor = "";
+    console.log(spellCheckError.categories);
+    if (spellCheckError.categories.length > 0) {
+        markColor = spellCheckErrors[spellCheckError.categories[0]].markColor
+    }
+
     return (
         <div
             style={{display: "inline", position: "relative", overflowX: "visible"}}>
-            <mark
+            <span
                 tabIndex={0}
-                style={{backgroundColor: markColor}}
+                style={{backgroundColor: markColor ? markColor: "transparent", whiteSpace: "pre-line"}}
                 className={"mark"}
                 onClick={(event) => setAnchorEl(event.target)}
             >
                 {text}
-            </mark>
+            </span>
             <Popover
                 id={id}
                 sx={{minWidth: 250, maxWidth: 400}}
@@ -85,10 +92,17 @@ const SpellCheckErrorTextElement = ({spellCheckError, text, onSpellCheckErrorCat
                     horizontal: 'left',
                 }}
             >
-                <Typography sx={{ p: 2 }}>{spellCheckError.message}
-                    <br/>
-                    <b>{spellCheckError.replacements.length > 0 ? "-> " + spellCheckError.replacements[0].value : ""}</b>
-                    <FormControl sx={{ mt: 2, width: "90%" }}>
+                <Typography sx={{ p: 2 }}>
+                    {spellCheckError.replacements &&
+                        <>
+                            {spellCheckError.message}
+                            <br/>
+                            <b>{spellCheckError.replacements.length > 0 ? "-> " + spellCheckError.replacements[0].value : ""}
+                            </b>
+                        </>
+                    }
+                    {spellCheckError.hasOwnProperty("isNew") && <b>{spellCheckError.word}</b>}
+                    <FormControl sx={{ mt: 2, width: "250px" }}>
                         <InputLabel id="demo-multiple-chip-label">Oldenburg Fehler</InputLabel>
                         <Select
                             labelId="demo-multiple-chip-label"
