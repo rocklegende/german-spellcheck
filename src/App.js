@@ -14,6 +14,7 @@ function App() {
 
   const [spellCheckOutput, setSpellCheckOutput] = useState(null);
   const [spellCheckResults, setSpellCheckResults] = useState(null);
+  const [showAnalysis, setShowAnalysis] = useState(false);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false)
 
@@ -85,6 +86,10 @@ function App() {
   const handleChange = (event) => {
       setInputText(event.target.value);
   }
+  
+  const handleShowAnalysisChange = (event) => {
+      setShowAnalysis(event.target.value);
+  }
 
   useEffect(() => {
       getSpellCheckResults()
@@ -114,17 +119,21 @@ function App() {
           <div className="textfield">{spellCheckOutput}</div>
         </div>
         <div className={"spacer-small"} />
-        <div className={"bar-chart-container"}>
+        <input type="checkbox" value={!showAnalysis} onChange={handleShowAnalysisChange}>Analyse zeigen</button>
+        <div class="analysis-results" style={{"display": showAnalysis ? "block" : "none"}}>
+          <div className={"bar-chart-container"}>
           {spellCheckResults && (
               <ErrorOccurencesBarChart spellCheckResults={spellCheckResults} />
           )}
-        </div>
+          </div>
           <div className={"spacer-small"} />
           <div className={"bar-chart-container"}>
               {spellCheckResults && (
                   <ErrorsByGroupBarChart spellCheckResults={spellCheckResults} />
               )}
           </div>
+        </div>
+
         <div className={"spacer"} />
       </main>
 
