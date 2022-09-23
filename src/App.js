@@ -6,6 +6,7 @@ import SpellCheckErrorTextElement from "./components/SpellCheckErrorTextElement"
 import ErrorOccurencesBarChart from "./components/ErrorOccurencesBarChart";
 import {getTextsWithOffsets} from "./helpers";
 import ErrorsByGroupBarChart from "./components/ErrorsByGroupBarChart";
+import { Checkbox } from '@mui/material';
 
 
 
@@ -88,7 +89,7 @@ function App() {
   }
   
   const handleShowAnalysisChange = (event) => {
-      setShowAnalysis(event.target.value);
+      setShowAnalysis(event.target.checked);
   }
 
   useEffect(() => {
@@ -112,14 +113,15 @@ function App() {
           <div className={"spacer"} />
           <textarea placeholder={"Hier Text eingeben.."} className="input-textfield textfield box-shadow" onChange={debouncedChangeHandler} />
           <div className={"spacer"}/>
-          <h2 className={"heading"}>Analyse</h2>
-          <div style={{height: "1rem"}} className={"loading-icon-container"}>
-            {loading && (<div className="dot-flashing"></div>)}
+          <h2 className={"heading"}>Analyse<Checkbox value={showAnalysis} onChange={handleShowAnalysisChange} /></h2>
+          <div style={{"display": showAnalysis ? "block" : "none"}} style={{height: "1rem"}} className={"loading-icon-container"}>
+            {loading && (<div style={{"display": showAnalysis ? "block" : "none"}} className="dot-flashing"></div>)}
           </div>
-          <div className="textfield">{spellCheckOutput}</div>
+          <div style={{"display": showAnalysis ? "block" : "none"}} className="textfield">{spellCheckOutput}</div>
         </div>
         <div className={"spacer-small"} />
-        <input type="checkbox" value={!showAnalysis} onChange={handleShowAnalysisChange}>Analyse zeigen</input>
+        
+        
         <div class="analysis-results" style={{"display": showAnalysis ? "block" : "none"}}>
           <div className={"bar-chart-container"}>
           {spellCheckResults && (
