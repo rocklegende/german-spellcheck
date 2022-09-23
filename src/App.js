@@ -89,7 +89,7 @@ function App() {
   }
   
   const handleShowAnalysisChange = (event) => {
-      setShowAnalysis(event.target.value);
+      setShowAnalysis(event.target.checked);
   }
 
   useEffect(() => {
