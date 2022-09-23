@@ -119,7 +119,7 @@ function App() {
           <div className="textfield">{spellCheckOutput}</div>
         </div>
         <div className={"spacer-small"} />
-        <input type="checkbox" value={!showAnalysis} onChange={handleShowAnalysisChange}>Analyse zeigen</input>
+        
         <div class="analysis-results" style={{"display": showAnalysis ? "block" : "none"}}>
           <div className={"bar-chart-container"}>
           {spellCheckResults && (
