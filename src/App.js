@@ -113,14 +113,14 @@ function App() {
           <div className={"spacer"} />
           <textarea placeholder={"Hier Text eingeben.."} className="input-textfield textfield box-shadow" onChange={debouncedChangeHandler} />
           <div className={"spacer"}/>
-          <h2 className={"heading"}>Analyse</h2>
-          <div style={{height: "1rem"}} className={"loading-icon-container"}>
+          <h2 className={"heading"}>Analyse<Checkbox value={showAnalysis} onChange={handleShowAnalysisChange} /></h2>
+          <div style={{"display": showAnalysis ? "block" : "none"}} style={{height: "1rem"}} className={"loading-icon-container"}>
             {loading && (<div className="dot-flashing"></div>)}
           </div>
-          <div className="textfield">{spellCheckOutput}</div>
+          <div style={{"display": showAnalysis ? "block" : "none"}} className="textfield">{spellCheckOutput}</div>
         </div>
         <div className={"spacer-small"} />
-        <Checkbox value={showAnalysis} onChange={handleShowAnalysisChange} />
+        
         
         <div class="analysis-results" style={{"display": showAnalysis ? "block" : "none"}}>
           <div className={"bar-chart-container"}>
