@@ -6,6 +6,7 @@ import SpellCheckErrorTextElement from "./components/SpellCheckErrorTextElement"
 import ErrorOccurencesBarChart from "./components/ErrorOccurencesBarChart";
 import {getTextsWithOffsets} from "./helpers";
 import ErrorsByGroupBarChart from "./components/ErrorsByGroupBarChart";
+import { Checkbox } from '@mui/material';
 
 
 
@@ -119,6 +120,7 @@ function App() {
           <div className="textfield">{spellCheckOutput}</div>
         </div>
         <div className={"spacer-small"} />
+        <Checkbox value={showAnalysis} onChange={handleShowAnalysisChange} />
         
         <div class="analysis-results" style={{"display": showAnalysis ? "block" : "none"}}>
           <div className={"bar-chart-container"}>
