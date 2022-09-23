@@ -115,7 +115,7 @@ function App() {
           <div className={"spacer"}/>
           <h2 className={"heading"}>Analyse<Checkbox value={showAnalysis} onChange={handleShowAnalysisChange} /></h2>
           <div style={{"display": showAnalysis ? "block" : "none"}} style={{height: "1rem"}} className={"loading-icon-container"}>
-            {loading && (<div className="dot-flashing"></div>)}
+            {loading && (<div style={{"display": showAnalysis ? "block" : "none"}} className="dot-flashing"></div>)}
           </div>
           <div style={{"display": showAnalysis ? "block" : "none"}} className="textfield">{spellCheckOutput}</div>
         </div>
