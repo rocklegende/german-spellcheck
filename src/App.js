@@ -6,6 +6,7 @@ import SpellCheckErrorTextElement from "./components/SpellCheckErrorTextElement"
 import ErrorOccurencesBarChart from "./components/ErrorOccurencesBarChart";
 import {getTextsWithOffsets} from "./helpers";
 import ErrorsByGroupBarChart from "./components/ErrorsByGroupBarChart";
+import { Checkbox } from '@mui/material';
 import {SaveText} from "./SaveText";
 
 
@@ -15,6 +16,7 @@ function App() {
 
   const [spellCheckOutput, setSpellCheckOutput] = useState(null);
   const [spellCheckResults, setSpellCheckResults] = useState(null);
+  const [showAnalysis, setShowAnalysis] = useState(false);
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false)
 
@@ -87,6 +89,10 @@ function App() {
       setInputText(event.target.value);
   }
 
+  const handleShowAnalysisChange = (event) => {
+      setShowAnalysis(event.target.checked);
+  }
+
   useEffect(() => {
       getSpellCheckResults()
   }, [inputText])
@@ -109,24 +115,29 @@ function App() {
           <textarea placeholder={"Hier Text eingeben.."} className="input-textfield textfield box-shadow" onChange={debouncedChangeHandler} />
             {inputText && <SaveText text={inputText} />}
           <div className={"spacer"}/>
-          <h2 className={"heading"}>Analyse</h2>
-          <div style={{height: "1rem"}} className={"loading-icon-container"}>
-            {loading && (<div className="dot-flashing"></div>)}
+          <h2 className={"heading"}>Analyse zeigen<Checkbox value={showAnalysis} onChange={handleShowAnalysisChange} /></h2>
+          <div style={{"display": showAnalysis ? "block" : "none"}} style={{height: "1rem"}} className={"loading-icon-container"}>
+            {loading && (<div style={{"display": showAnalysis ? "block" : "none"}} className="dot-flashing"></div>)}
           </div>
-          <div className="textfield">{spellCheckOutput}</div>
+          <div style={{"display": showAnalysis ? "block" : "none"}} className="textfield">{spellCheckOutput}</div>
         </div>
         <div className={"spacer-small"} />
-        <div className={"bar-chart-container"}>
+
+
+        <div class="analysis-results" style={{"display": showAnalysis ? "block" : "none"}}>
+          <div className={"bar-chart-container"}>
           {spellCheckResults && (
               <ErrorOccurencesBarChart spellCheckResults={spellCheckResults} />
           )}
-        </div>
+          </div>
           <div className={"spacer-small"} />
           <div className={"bar-chart-container"}>
               {spellCheckResults && (
                   <ErrorsByGroupBarChart spellCheckResults={spellCheckResults} />
               )}
           </div>
+        </div>
+
         <div className={"spacer"} />
       </main>
 
