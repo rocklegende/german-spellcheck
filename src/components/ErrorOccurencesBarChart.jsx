@@ -69,7 +69,7 @@ const ErrorOccurencesBarChart = ({spellCheckResults}) => {
     };
 
     return <Bar options={options} data={data} type={""} style={{
-        maxHeight: "300px"
+        maxHeight: "600px"
     }}/>;
 }
 

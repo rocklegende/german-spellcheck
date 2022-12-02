@@ -6,6 +6,7 @@ import SpellCheckErrorTextElement from "./components/SpellCheckErrorTextElement"
 import ErrorOccurencesBarChart from "./components/ErrorOccurencesBarChart";
 import {getTextsWithOffsets} from "./helpers";
 import ErrorsByGroupBarChart from "./components/ErrorsByGroupBarChart";
+import {SaveText} from "./SaveText";
 
 
 
@@ -106,6 +107,7 @@ function App() {
         <div className={"input-fields"}>
           <div className={"spacer"} />
           <textarea placeholder={"Hier Text eingeben.."} className="input-textfield textfield box-shadow" onChange={debouncedChangeHandler} />
+            {inputText && <SaveText text={inputText} />}
           <div className={"spacer"}/>
           <h2 className={"heading"}>Analyse</h2>
           <div style={{height: "1rem"}} className={"loading-icon-container"}>

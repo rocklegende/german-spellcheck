@@ -6,7 +6,12 @@ $default-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+}
+
 main {
+  padding: 1rem;
   width: 100%;
 }
 
@@ -163,6 +168,7 @@ textarea {
 
 .mark {
   cursor: pointer;
+  -webkit-print-color-adjust: exact;
 }
 .mark:hover {
   text-decoration: underline;
