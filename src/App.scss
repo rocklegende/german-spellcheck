@@ -99,6 +99,8 @@ textarea {
 
 .box-shadow {
   box-shadow: $default-box-shadow;
+  -webkit-box-shadow: $default-box-shadow;
+  -webkit-appearance: none;
 }
 
 
