@@ -1,14 +1,16 @@
 import './App.scss';
 import {useEffect, useMemo, useState} from "react";
-import DataProvider, {groupErrorsByOccurence} from "./dataProvider";
+import DataProvider, {countWords, getLeistungswert, getRelativerFehler, groupErrorsByOccurence} from "./dataProvider";
 import {debounce} from "lodash";
 import SpellCheckErrorTextElement from "./components/SpellCheckErrorTextElement";
 import ErrorOccurencesBarChart from "./components/ErrorOccurencesBarChart";
 import {getTextsWithOffsets} from "./helpers";
 import ErrorsByGroupBarChart from "./components/ErrorsByGroupBarChart";
-import { Checkbox } from '@mui/material';
+import {Checkbox, InputLabel, Select} from '@mui/material';
 import {SaveText} from "./SaveText";
-
+import {getKompetenzWert, getTotalNumErrors} from "./dataProvider";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
 
 
 
@@ -17,6 +19,10 @@ function App() {
   const [spellCheckOutput, setSpellCheckOutput] = useState(null);
   const [spellCheckResults, setSpellCheckResults] = useState(null);
   const [showAnalysis, setShowAnalysis] = useState(false);
+  const [klassenstufe, setKlassenstufe] = useState(21.5);
+  const handleKlassenstufeChange = (event) => {
+      setKlassenstufe(event.target.value);
+  };
   const [inputText, setInputText] = useState("");
   const [loading, setLoading] = useState(false)
 
@@ -107,6 +113,13 @@ function App() {
     }
   }, []);
 
+  if (spellCheckResults) {
+      const wordCount = countWords(inputText);
+      const kompetenzwert = getKompetenzWert(spellCheckResults);
+      const relativerFehler = getRelativerFehler(spellCheckResults, wordCount, klassenstufe);
+      const leistungsWert = getLeistungswert(spellCheckResults, relativerFehler);
+  }
+
   return (
     <div className="App">
       <main>
@@ -136,7 +149,46 @@ function App() {
                   <ErrorsByGroupBarChart spellCheckResults={spellCheckResults} />
               )}
           </div>
+            <div className={"bar-chart-container"}>
+                {spellCheckResults && (<>
+
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Klassenstufe</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={klassenstufe}
+                            label="Age"
+                            onChange={handleKlassenstufeChange}
+                        >
+                            <MenuItem value={21.5}>3. Klassenstufe (Mitte)</MenuItem>
+                            <MenuItem value={16.4}>Ende der 3., Anfang der 4. Klassenstufe</MenuItem>
+                            <MenuItem value={13.3}>4. Klassenstufe (Mitte)</MenuItem>
+                            <MenuItem value={11.1}>Ende der 4., Anfang der 5. Klassenstufe</MenuItem>
+                            <MenuItem value={12.2}>5. Klassenstufe (Mitte)</MenuItem>
+                            <MenuItem value={11.5}>Ende der 5., Anfang der 6. Klassenstufe</MenuItem>
+                            <MenuItem value={11.0}>6. Klassenstufe (Mitte)</MenuItem>
+                            <MenuItem value={10.8}>Ende der 6., Anfang der 7. Klassenstufe</MenuItem>
+                            <MenuItem value={10.7}>7. Klassenstufe (Mitte)</MenuItem>
+                            <MenuItem value={10.7}>Ende der 7., Anfang der 8. Klassenstufe</MenuItem>
+                            <MenuItem value={10.8}>8. Klassenstufe (Mitte)</MenuItem>
+                            <MenuItem value={11}>Ende der 8., Anfang der 9. Klassenstufe</MenuItem>
+                            <MenuItem value={11.2}>9. Klassenstufe (Mitte)</MenuItem>
+                        </Select>
+                        </FormControl>
+                    <ul>
+                        <li>Anzahl Wörter: {countWords(inputText)}</li>
+                        <li>Anzahl Fehler in allen Gruppen: {getTotalNumErrors(spellCheckResults)}</li>
+                        <li>Kompetenzwert: {getKompetenzWert(spellCheckResults)}</li>
+                        <li>Tolerierte Fehlerzahl: {klassenstufe}</li>
+                        <li>Relativer Fehler: {getRelativerFehler(spellCheckResults, countWords(inputText), klassenstufe)}</li>
+                        <li>Leistungswert: {getLeistungswert(spellCheckResults, getRelativerFehler(spellCheckResults, countWords(inputText), klassenstufe))}</li>
+                    </ul>
+                    </>
+                )}
+            </div>
         </div>
+
 
         <div className={"spacer"} />
       </main>

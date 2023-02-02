@@ -1,5 +1,5 @@
 import {
-    addedKonsonant, addedVokal,
+    addedKonsonant, addedVokal, getKompetenzWert,
     hasDoubledInsteadOfSingleKonsonant,
     hasDoubledInsteadOfSingleVokal,
     hasSingleInsteadOfDoubleKonsonant,
@@ -163,5 +163,9 @@ describe("dataProvider tests", () => {
         expect(isTypo("Feier", "Heier")).toBeFalsy(); // F is two letters away from H on germna keyboard
         expect(isTypo("qeier", "weier")).toBeTruthy();
     })
+
+    // test("kompetenzwert", () => {
+    //     expect(getKompetenzWert(4, 3, 2))
+    // })
 
 })

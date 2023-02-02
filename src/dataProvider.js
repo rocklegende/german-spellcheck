@@ -475,6 +475,40 @@ export function groupErrorsByOccurence (errors) {
     return entries;
 }
 
+export const getTotalNumErrors = (spellCheckResults) => {
+    if (spellCheckResults.matches.length === 0) {
+        return 0;
+    }
+    const groups = groupErrorsByGroup(spellCheckResults.matches);
+    return groups[0].occurences + groups[1].occurences + groups[2].occurences;
+}
+
+export const getKompetenzWert = (spellCheckResults) => {
+    const totalNumErrors = getTotalNumErrors(spellCheckResults);
+    if (totalNumErrors === 0) {
+        return 0;
+    }
+    const statistics = groupErrorsByGroup(spellCheckResults.matches);
+    return (statistics[1].occurences + statistics[2].occurences - statistics[0].occurences) / totalNumErrors * 100;
+}
+
+export const countWords = (str) => {
+    return str.trim().split(/\s+/).length;
+}
+
+export const getRelativerFehler = (spellCheckResults, numWords, klassenstufeAbzug) => {
+    return (getTotalNumErrors(spellCheckResults) * 100 / numWords ) / klassenstufeAbzug;
+}
+
+export const getLeistungswert = (spellCheckResults, relativerWert) => {
+    const totalNumErrors = getTotalNumErrors(spellCheckResults);
+    if (totalNumErrors === 0) {
+        return 0;
+    }
+    const statistics = groupErrorsByGroup(spellCheckResults.matches);
+    return ((statistics[1].occurences + statistics[2].occurences) / totalNumErrors * 100) - ((statistics[0].occurences / totalNumErrors * 100) * relativerWert);
+}
+
 export function groupErrorsByGroup (errors) {
     let dict = {
         1: {group: 1, occurences: 0},
