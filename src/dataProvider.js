@@ -282,6 +282,13 @@ export const spellCheckErrors = {
         'rgba(255, 99, 132, 1)',
     null
     ),
+    "Zeichensetzungsfehler": new SpellCheckError(
+        "Zeichensetzungsfehler",
+        40,
+        "Zeichensetzungsfehler",
+        'rgba(255, 159, 64, 0.4)',
+        'rgba(255, 159, 64, 1)',
+    null),
     "Grammar": new SpellCheckError(
         "Grammar",
         40,
