@@ -480,7 +480,7 @@ export const getTotalNumErrors = (spellCheckResults) => {
         return 0;
     }
     const groups = groupErrorsByGroup(spellCheckResults.matches);
-    return groups[0].occurences + groups[1].occurences + groups[2].occurences;
+    return groups[0].occurences + groups[1].occurences + groups[2].occurences + spellCheckResults.numUnknownErrors;
 }
 
 export const getKompetenzWert = (spellCheckResults) => {
@@ -652,6 +652,7 @@ class DataProvider {
                 categories: [this.errorToCategory(match).id]
             }
         });
+        response.data.numUnknownErrors = response.data.matches.filter(match => match.categories.length > 0).filter(match => match.categories[0] === 'Unknown').length
         console.log(response.data);
         return response.data;
     }
