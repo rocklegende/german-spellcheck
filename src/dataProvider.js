@@ -69,10 +69,18 @@ export const spellCheckErrors = {
     "hasDoubledInsteadOfSingleVokal": new SpellCheckError(
         "hasDoubledInsteadOfSingleVokal",
         10,
-        "Markierte Längen für Einfachschreibung nach Kurzvokal",
+        "Markierte Längen für Einfachschreibung nach Langvokal",
         'rgba(255, 159, 64, 0.4)',
         'rgba(255, 159, 64, 1)',
         3
+    ),
+    "markierteVokalLaengeKurzvokal": new SpellCheckError(
+        "markierteVokalLaengeKurzvokal",
+        12,
+        "Markierte Vokallänge bei Kurzvokal, auch ie für kurze i",
+        'rgba(255, 159, 64, 0.4)',
+        'rgba(255, 159, 64, 1)',
+        1
     ),
     "hasSingleInsteadOfDoubleVokal": new SpellCheckError(
         "hasSingleInsteadOfDoubleVokal",
