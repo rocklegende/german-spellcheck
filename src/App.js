@@ -113,13 +113,6 @@ function App() {
     }
   }, []);
 
-  if (spellCheckResults) {
-      const wordCount = countWords(inputText);
-      const kompetenzwert = getKompetenzWert(spellCheckResults);
-      const relativerFehler = getRelativerFehler(spellCheckResults, wordCount, klassenstufe);
-      const leistungsWert = getLeistungswert(spellCheckResults, relativerFehler);
-  }
-
   return (
     <div className="App">
       <main>
@@ -178,7 +171,7 @@ function App() {
                         </FormControl>
                     <ul>
                         <li>Anzahl Wörter: {countWords(inputText)}</li>
-                        <li>Anzahl Fehler in allen Gruppen: {getTotalNumErrors(spellCheckResults)}</li>
+                        <li>Anzahl Fehler in allen Gruppen (+ unbekannte Fehler): {getTotalNumErrors(spellCheckResults)}</li>
                         <li>Kompetenzwert: {getKompetenzWert(spellCheckResults)}</li>
                         <li>Tolerierte Fehlerzahl: {klassenstufe}</li>
                         <li>Relativer Fehler: {getRelativerFehler(spellCheckResults, countWords(inputText), klassenstufe)}</li>
