@@ -652,7 +652,7 @@ class DataProvider {
                 categories: [this.errorToCategory(match).id]
             }
         });
-        response.data.numUnknownErrors = response.data.matches.filter(match => this.errorToCategory(match).id === 0).length
+        response.data.numUnknownErrors = response.data.matches.filter(match => match.categories.length > 0).filter(match => match.categories[0] === 'Unknown').length
         console.log(response.data);
         return response.data;
     }
