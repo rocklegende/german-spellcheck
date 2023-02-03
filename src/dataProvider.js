@@ -284,7 +284,7 @@ export const spellCheckErrors = {
     ),
     "Zeichensetzungsfehler": new SpellCheckError(
         "Zeichensetzungsfehler",
-        40,
+        60,
         "Zeichensetzungsfehler",
         'rgba(255, 159, 64, 0.4)',
         'rgba(255, 159, 64, 1)',
