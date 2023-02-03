@@ -480,7 +480,7 @@ export const getTotalNumErrors = (spellCheckResults) => {
         return 0;
     }
     const groups = groupErrorsByGroup(spellCheckResults.matches);
-    return groups[0].occurences + groups[1].occurences + groups[2].occurences;
+    return groups[0].occurences + groups[1].occurences + groups[2].occurences + spellCheckResults.numUnknownErrors;
 }
 
 export const getKompetenzWert = (spellCheckResults) => {
