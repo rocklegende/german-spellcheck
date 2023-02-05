@@ -266,6 +266,22 @@ export const spellCheckErrors = {
         'rgba(153, 102, 255, 1)',
     1
     ),
+    "ptk": new SpellCheckError(
+        "ptk",
+        19,
+        "p t k für b d g im Silbenendrand",
+        'rgba(153, 102, 255, 0.4)',
+        'rgba(153, 102, 255, 1)',
+    2
+    ),
+    "bdg": new SpellCheckError(
+        "bdg",
+        20,
+        "b d g für p t k im Silbenendrand",
+        'rgba(153, 102, 255, 0.4)',
+        'rgba(153, 102, 255, 1)',
+    3
+    ),
     "Unknown": new SpellCheckError(
         "Unknown",
         0,
